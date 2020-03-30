@@ -136,11 +136,10 @@ amce.tab <- function(data, variables, multi = F, same.party = F){
 #I am beyond confused by what I just saw above
 
 
-### Load in Study 2 data 
+### Load in Study 2 data .
 
-long.dat <- readRDS("study2data_long.rds")
-wide.dat <- readRDS("study2data_wide.rds")
-
+long.dat <- readRDS(file = "paper_files/study2data_long.rds")
+wide.dat <- readRDS("paper_files/study2data_wide.rds")
 
 ### Create labels for plotting
 
@@ -168,8 +167,8 @@ effect.label <- "Change in probability of MP being preferred,\n relative to base
 ### Figure 3: AMCEs for all attributes
 
 res <- amce.tab(data = long.dat, 
-                variables = c("mp.partypos", "mp.localroots", "mp.const", "mp.influence", "mp.policy", "mp.gender")
-                , multi = F)
+                variables = c("mp.partypos", "mp.localroots", "mp.const", "mp.influence", "mp.policy", "mp.gender"),
+                multi = F)
 res$category <- factor(as.character(res$category), levels = rev(as.character(res$category)), order =T)
 #write.csv(res, "amce-all.csv")# write results to csv file
 
@@ -189,7 +188,7 @@ ggplot(res, aes(x = category, y = AMCE, color = attribute)) +
   theme(axis.ticks.y = element_blank(), axis.text.y = element_text(hjust = 1), # remove ticks and justify
         axis.title.x = element_text(size = 13, vjust = 0)) + 
   scale_x_discrete(labels=labels)
-ggsave("figure3.eps", height = 7, width = 8)
+ggsave("paper_files/images/figure3.eps", height = 7, width = 8)
 #ggsave("figure3.png", dpi = 600, height = 7, width = 8)
 
 
@@ -358,7 +357,7 @@ ggplot(subres, aes(x = category, y = AMCE, fill = set)) +
                     values = c("White","Gray50","Black"),
                     breaks = rev(levels(res$set))) +
   theme(legend.position="bottom")
-ggsave("figureG1a.png", dpi = 600, height = 5, width = 10)
+ggsave("paper_files/images/figureG1a.png", dpi = 600, height = 5, width = 10)
 
 
 ### Figure G1 Panel (b)
@@ -397,7 +396,7 @@ ggplot(subres, aes(x = category, y = AMCE, fill = set)) +
                     values = c("White","Gray50","Black"),
                     breaks = rev(levels(res$set))) +
   theme(legend.position="bottom")
-ggsave("figureG1b.png", dpi = 600, height = 5, width = 10)
+ggsave("paper_files/images/figureG1b.png", dpi = 600, height = 5, width = 10)
 
 
 
@@ -439,7 +438,7 @@ ggplot(subres, aes(x = category, y = AMCE, fill = set)) +
                     values = c("White","Gray30","Gray70","Black"),
                     breaks = rev(levels(res$set))) +
   theme(legend.position="bottom")
-ggsave("figureG1c.png", dpi = 600, height = 5, width = 10)
+ggsave("paper_files/images/figureG1c.png", dpi = 600, height = 5, width = 10)
 
 
 ### F-tests quoted in main text
@@ -510,7 +509,7 @@ ggplot(subres, aes(x = category, y = AMCE)) + #, color = set, shape = set)) +
   theme(axis.text.y = element_text(hjust = 1)) +
   theme(text = element_text(size = 15)) +
   scale_x_discrete(labels=labels)
-ggsave("figureH1.png", dpi = 600, height = 5, width = 8)
+ggsave("paper_files/images/figureH1.png", dpi = 600, height = 5, width = 8)
 #ggsave("figureH1.eps",height = 5, width = 8)
 
 
@@ -567,7 +566,7 @@ ggplot(subres, aes(x = category, y = AMCE)) + #, color = set, shape = set)) +
   theme(axis.text.y = element_text(hjust = 1)) +
   theme(text = element_text(size = 15)) +
   scale_x_discrete(labels=labels)
-ggsave("figureI1.png", dpi = 600, height = 9, width = 8)
+ggsave("paper_files/images/figureI1.png", dpi = 600, height = 9, width = 8)
 
 
 ### Figure I2
@@ -610,7 +609,7 @@ ggplot(plotdf, aes(x = localroots, y = AMCE)) +
   theme(axis.text.y = element_text(hjust = 1)) +
   theme(text = element_text(size = 15)) +
   scale_x_discrete(labels=labels)
-ggsave("figureI2.png", dpi = 600, height = 4, width = 8)
+ggsave("paper_files/images/figureI2.png", dpi = 600, height = 4, width = 8)
 
 
 #I need to better understand the f tests but then also much of the function and 

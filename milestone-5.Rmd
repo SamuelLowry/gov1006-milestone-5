@@ -132,23 +132,6 @@ I used @images in order to help me figure out how to input the image. I used @co
 ```{r table, results='asis'}
 #I took the code for table 2 from their code and made it output to Latex
 
-m1 <- lm(nickminusphil ~ localtreat*behtreatsimple, data = d)
-
-se1 <- sqrt(diag(vcovHC(m1)))
-
-m2 <- lm(nickminusphil ~ localtreat*behtreatsimple +
-           gender + agegrp + socgrade + qual
-         , data = d)
-se2 <- sqrt(diag(vcovHC(m2)))
-
-m3 <- lm(nickminusphil ~ localtreat*behtreat, data = d)
-se3 <- sqrt(diag(vcovHC(m3)))
-
-m4 <- lm(nickminusphil ~ localtreat*behtreat +
-           gender + agegrp + socgrade + qual
-         , data = d)
-se4 <- sqrt(diag(vcovHC(m4)))
-
 stargazer(mget(paste0("m",1:4)),
           se = mget(paste0("se",1:4)),
           type = "latex",

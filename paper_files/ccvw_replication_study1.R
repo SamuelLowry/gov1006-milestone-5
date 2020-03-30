@@ -63,9 +63,7 @@ predict.rob <- function(object, vcov,newdata){
 
 #Straightforward here
 
-d <- readRDS("study1data.rds")
-
-
+d <- readRDS("paper_files/study1data.rds")
 
 ### Balance and randomization checks (Appendix C)
 
@@ -81,7 +79,7 @@ bp3 <- bal.plot(treat = d$treatgroup,  obj = covariates, var.name = "qualdegree"
 bp4 <- bal.plot(treat = d$treatgroup,  obj = covariates, var.name = "socgrade") + ggtitle("Distribution balance for social grade") + theme_gray() + xlab("")
 
 pcomb <- plot_grid(bp1, bp2, bp3, bp4, align = "l", nrow = 4)
-save_plot("figureC1.png", pcomb, dpi = 600, base_width = 8, base_height = 10)
+save_plot("paper_files/images/figureC1.png", pcomb, dpi = 600, base_width = 8, base_height = 10)
 
 
 ### Randomization checks
@@ -105,7 +103,7 @@ rownames(resdf) <- NULL
 print(xtable(resdf, align = c("l", "l", "c", "c", "c"),
              digits = c(0,0, 2, 0,2),
              label = "tab:rchecks", caption = "Randomization checks"), 
-      type = "html", file = "tableC1.html", include.rownames = FALSE)
+      type = "html", file = "paper_files/images/tableC1.html", include.rownames = FALSE)
 
 
 
@@ -132,7 +130,7 @@ se4 <- sqrt(diag(vcovHC(m4)))
 
 ## Output to table
 #I need to learn stargazer, but I dont think it is TOO hard. Seems straightforward. 
-filename <- paste0("table2.html")
+filename <- paste0("paper_files/images/table2.html'")
 stargazer(mget(paste0("m",1:4)),
           se = mget(paste0("se",1:4)),
           type = "html",
@@ -177,8 +175,7 @@ margins.comb <- margins.m4
 margins.comb$behtreat.neat <- car:::recode(margins.comb$behtreat, 
                                            '"No behavioural info" = "Behavioral information treatment --\\nNo information (Vignettes 1-2)";
                                            "Westmin. focus" = "Behavioral information treatment --\\nLow behavioral localism (Vignettes 5-6)";
-                                           "Const. focus" = "Behavioral information treatment --\\nHigh behavioral localism (Vignettes 3-4)"',
-                                           as.factor.result = TRUE)
+                                           "Const. focus" = "Behavioral information treatment --\\nHigh behavioral localism (Vignettes 3-4)"')
 margins.comb$behtreat.neat <- factor(sub(" --", ":", margins.comb$behtreat.neat),
                                      levels = c("Behavioral information treatment:\nNo information (Vignettes 1-2)", 
                                                 "Behavioral information treatment:\nLow behavioral localism (Vignettes 5-6)",
@@ -228,8 +225,7 @@ predlevels.comb <- predlevels.m4
 predlevels.comb$behtreat.neat <- car:::recode(predlevels.comb$behtreat, 
                                               '"No behavioural info" = "Behavioral information treatment --\\nNo information (Vignettes 1-2)";
                                               "Westmin. focus" = "Behavioral information treatment --\\nLow behavioral localism (Vignettes 5-6)";
-                                              "Const. focus" = "Behavioral information treatment --\\nHigh behavioral localism (Vignettes 3-4)"',
-                                              as.factor.result = TRUE)
+                                              "Const. focus" = "Behavioral information treatment --\\nHigh behavioral localism (Vignettes 3-4)"')
 predlevels.comb$behtreat.neat <- factor(sub(" --", ":", predlevels.comb$behtreat.neat),
                                         levels = c("Behavioral information treatment:\nNo information (Vignettes 1-2)", 
                                                    "Behavioral information treatment:\nLow behavioral localism (Vignettes 5-6)",
@@ -252,7 +248,7 @@ p2 <- ggplot(predlevels.comb, aes(x = localtreat, y = yhat)) +
 ## Now combine aspects of above plots into 3 x 2 plot
 pcomb <- plot_grid(p2, p1, align = "h", rel_widths = c(1,0.8))
 #save_plot("figure1.png", pcomb, dpi = 600, base_width = 8, base_height = 4)
-save_plot("figure1.eps", pcomb, base_width = 8, base_height = 4)
+save_plot("paper_files/images/figure1.eps", pcomb, base_width = 8, base_height = 4)
 
 
 
@@ -279,7 +275,7 @@ m8 <- lm(nickscore ~ localtreat*behtreat +
          , data = d)
 se8 <- sqrt(diag(vcovHC(m8)))
 
-filename <- paste0("tableB1.html")
+filename <- paste0("paper_files/images/tableB1.html")
 stargazer(mget(paste0("m",5:8)),
           se = mget(paste0("se",5:8)),
           type = "html",
@@ -401,7 +397,7 @@ p2 <- ggplot(predlevels.comb, aes(x = localtreat, y = yhat)) +
 
 
 pcomb <- plot_grid(p2, p1, align = "h", rel_widths = c(1,0.8))
-save_plot("figureB1.png", pcomb, dpi = 600, base_width = 8, base_height = 4)
+save_plot("paper_files/images/figureB1.png", pcomb, dpi = 600, base_width = 8, base_height = 4)
 #save_plot("figureB1.eps", pcomb, base_width = 8, base_height = 4)
 
 
@@ -437,7 +433,7 @@ coeftest(m12, vcovHC(m12))
 
 
 
-filename <- paste0("tableB2.html")
+filename <- paste0("paper_files/images/tableB2.html")
 stargazer(mget(paste0("m",9:12)),
           se = mget(paste0("se",9:12)),
           type = "html",
@@ -501,7 +497,7 @@ se16 <- sqrt(diag(vcovHC(m16)))
 coeftest(m16, vcovHC(m16))
 
 
-filename <- paste0("tableD1.html")
+filename <- paste0("paper_files/images/tableD1.html")
 stargazer(mget(paste0("m",c(15:16, 13:14))),
           se = mget(paste0("se",c(15:16, 13:14))),
           type = "html",
